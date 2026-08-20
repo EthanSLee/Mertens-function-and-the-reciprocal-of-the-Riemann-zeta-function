@@ -184,3 +184,10 @@ for increment in [10**(1-a) for a in range(4)]:
     while bound3(exp(yC + j)) < bound4(exp(yC + j)):
         yC += j
 print(yC)
+
+"""
+Output:
+1650.7699999999977
+138529.3300000094
+25.539999999999996
+"""
