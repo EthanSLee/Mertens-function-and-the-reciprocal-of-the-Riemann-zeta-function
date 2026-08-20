@@ -33,7 +33,7 @@ def H():
 Note: From this point onward, we abuse notation slightly and write t for log(t).
 """
 
-## Generalised framefork
+## Generalised framework
 
 def a(r,t):
     return 1 + fdiv(log(1 + r*exp(-t)),t)
@@ -178,7 +178,6 @@ def optimised_ub_sg1(t,Z=5.558691,xi1=1,xi2=0):
     omga = 0.5
     for v in [10**(-p) for p in range(11)]:
         while ub(t,fdiv(1,Z),omga + v,W,xi1,xi2,2)[0] < ub(t,fdiv(1,Z),omga,W,xi1,xi2,2)[0]:
-            #print(f"{omga}")
             omga += v
         omga -= v
     omga += v
@@ -188,7 +187,6 @@ def proc_sg1(Z=5.558691,xi1=1,xi2=0):
     T0 = 5
     for v in [1000,100,10,1,0.1,0.01]:
         while 24.303*power(fdiv(T0+v,log(T0+v)),fdiv(1,3)) < optimised_ub_sg1(T0+v,Z,xi1,xi2):
-            #print(T0+v, optimised_ub_sg1(T0+v,Z,xi1,xi2))
             T0 += v
     return T0, optimised_ub_sg1(T0,Z,xi1,xi2)
 
