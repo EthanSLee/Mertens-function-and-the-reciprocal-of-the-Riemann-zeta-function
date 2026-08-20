@@ -157,7 +157,7 @@ Output:
  $21.24$ & $1980$ & $0.00069$ \\
 """
 
-## Korobov--Vinogradov bounds
+## Korobov--Vinogradov bounds (\sigma < 1)
 
 for W in [70,60,55,54,53.99]:
     if W > 53.99:
@@ -170,4 +170,32 @@ for W in [70,60,55,54,53.99]:
 """
 Output:
 
+"""
+
+## Korobov--Vinogradov bounds (\sigma \geq 1)
+
+def optimised_ub_sg1(t,Z=5.558691,xi1=1,xi2=0):
+    omga = 0.5
+    for v in [10**(-p) for p in range(11)]:
+        while ub(t,fdiv(1,Z),omga + v,W,xi1,xi2,2)[0] < ub(t,fdiv(1,Z),omga,W,xi1,xi2,2)[0]:
+            #print(f"{omga}")
+            omga += v
+        omga -= v
+    omga += v
+    comp1, comp2, check = ub(t,fdiv(1,Z),omga,W,xi1,xi2,2)
+    return comp1
+def proc_sg1(Z=5.558691,xi1=1,xi2=0):
+    T0 = 5
+    for v in [1000,100,10,1,0.1,0.01]:
+        while 24.303*power(fdiv(T0+v,log(T0+v)),fdiv(1,3)) < optimised_ub_sg1(T0+v,Z,xi1,xi2):
+            #print(T0+v, optimised_ub_sg1(T0+v,Z,xi1,xi2))
+            T0 += v
+    return T0, optimised_ub_sg1(T0,Z,xi1,xi2)
+
+proc_sg1(53.989,fdiv(2,3),fdiv(1,3))
+
+"""
+Output:
+(6186.0700000000015,
+ mpf('216.666947007816352835602272862041947555235890331876968509374450767324729790079419447795142710742787437134600499418127680453'))
 """
